@@ -1,0 +1,65 @@
+# sqlmlutils installation instructions at https://docs.microsoft.com/en-us/sql/advanced-analytics/package-management/install-additional-r-packages-on-sql-server?view=sql-server-2017
+# sqlmlutils details at https://github.com/microsoft/sqlmlutils/tree/master/R
+
+# Step 1, installation:
+# Download the zip file from https://github.com/Microsoft/sqlmlutils/tree/master/R/dist
+# I'll assume you downloaded to C:\temp\sqlmlutils_0.7.1.zip.
+if (!require(RODBCext))
+{
+  install.packages("RODBCext", repos = "https://cran.microsoft.com")
+}
+install.packages("C:\\temp\\sqlmlutils_0.7.1.zip", repos = NULL)
+
+library(sqlmlutils)
+
+# NOTE:  need to do this for *each* database!
+db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost", database = "ExpenseReports")
+
+# Install one package.
+sql_install.packages(
+  connectionString = db_connection,
+  pkgs = "tidyverse",
+  scope = "PUBLIC",
+  verbose = TRUE
+)
+# Install multiple packages.
+sql_install.packages(
+  connectionString = db_connection,
+  pkgs = c("data.table", "xgboost"),
+  scope = "PUBLIC",
+  verbose = TRUE,
+  repos = "https://cran.microsoft.com"
+)
+
+sql_remove.packages(
+  connectionString = db_connection,
+  pkgs = c("xgboost", "data.table"),
+  scope = "PUBLIC",
+  verbose = TRUE
+)
+
+sql_remove.packages(
+  connectionString = db_connection,
+  pkgs = "ForensicAccountingR",
+  dependencies = FALSE,
+  checkReferences = TRUE,
+  scope = "PUBLIC",
+  verbose = TRUE
+)
+
+sql_install.packages(
+  connectionString = db_connection,
+  pkgs = "C:/SourceCode/Developing-Machine-Learning-Services/packages/ForensicAccountingR_0.1.0.zip",
+  verbose = TRUE,
+  scope = "PUBLIC",
+  repos = NULL
+)
+
+r <- sql_installed.packages(connectionString = db_connection, fields=c("Package", "Version", "LibPath", "Attributes", "Scope"))
+View(r)
+
+library(devtools)
+find_rtools()
+
+install.packages("devtools", repos = "https://cran.microsoft.com")
+assignInNamespace("version_info", c(devtools:::version_info, list("3.5.1" = list(version_min = "3.3.0", version_max = "99.99.99", path = "bin"))), "devtools")
