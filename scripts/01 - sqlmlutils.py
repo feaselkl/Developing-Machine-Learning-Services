@@ -4,7 +4,7 @@ import sqlmlutils
 from sqlmlutils.packagemanagement.scope import Scope
 
 # Connect to the Database
-conn = sqlmlutils.ConnectionInfo(server="localhost", database="ForensicAccounting")
+conn = sqlmlutils.ConnectionInfo(server="localhost,50433", database="ExpenseReports")
 sqlpy = sqlmlutils.SQLPythonExecutor(conn)
 pkgmanager = sqlmlutils.SQLPackageManager(conn)
 # Install a package as dbo, allowing anybody to use it.

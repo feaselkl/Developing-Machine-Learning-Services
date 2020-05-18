@@ -16,7 +16,7 @@ if (!require(sqlmlutils))
 
 
 # NOTE:  need to do this for *each* database!
-db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost", database = "ForensicAccounting")
+db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost,50433", database = "ExpenseReporting")
 
 # Install one package.
 sql_install.packages(
@@ -75,7 +75,3 @@ if (1=2) {
     verbose = TRUE
   )
 }
-
-
-# data.table == 1.11.4
-# xgboost == 0.71.2
