@@ -16,7 +16,7 @@ if (!require(sqlmlutils))
 
 
 # NOTE:  need to do this for *each* database!
-db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost,52433", database = "ExpenseReports")
+db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost", database = "ExpenseReports")
 
 # Install one package.
 sql_install.packages(

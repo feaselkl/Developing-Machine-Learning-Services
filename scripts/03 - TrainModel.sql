@@ -1,5 +1,18 @@
 USE [ExpenseReports]
 GO
+IF (OBJECT_ID('dbo.Model') IS NULL)
+BEGIN
+	CREATE TABLE dbo.Model
+	(
+		ModelID INT IDENTITY(1,1) NOT NULL CONSTRAINT [PK_Model] PRIMARY KEY CLUSTERED,
+		ModelLanguage NVARCHAR(20),
+		ModelType NVARCHAR(40),
+		Model VARBINARY(MAX),
+		IsNativeScored BIT
+	);
+END
+GO
+
 CREATE OR ALTER PROCEDURE dbo.ExpenseReports_TrainModelML
 (
 @language NVARCHAR(128),
@@ -33,8 +46,8 @@ BEGIN
 	IF (@language = N'R')
 	BEGIN
 		SET @remoteCommand = N'
-		require("ForensicAccountingR");
-		trained_model <- ForensicAccountingR::TrainModel(ExpenseData, "{0}");
+		require("ExpenseReportsR");
+		trained_model <- ExpenseReportsR::TrainModel(ExpenseData, "{0}");
 		';
 		SET @remoteCommand = REPLACE(@remoteCommand, N'{0}', @modelType);
 	END
@@ -105,3 +118,11 @@ EXEC dbo.ExpenseReports_TrainModel
 	@language = N'Python',
 	@modelType = N'RandomForestRegression';
 GO
+
+SELECT
+	ModelID,
+	ModelLanguage,
+	ModelType,
+	Model,
+	IsNativeScored
+FROM dbo.Model m;

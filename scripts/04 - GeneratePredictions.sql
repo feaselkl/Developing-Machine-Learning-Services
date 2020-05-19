@@ -41,8 +41,8 @@ BEGIN
 	IF (@language = N'R')
 	BEGIN
 		SET @remoteCommand = N'
-		require("ForensicAccountingR");
-		OutputDataSet <- ForensicAccountingR::GeneratePredictions(ExpenseData, "{0}", trained_model);
+		require("ExpenseReportsR");
+		OutputDataSet <- ExpenseReportsR::GeneratePredictions(ExpenseData, "{0}", trained_model);
 		';
 		SET @remoteCommand = REPLACE(@remoteCommand, N'{0}', @modelType);
 	END
@@ -121,7 +121,7 @@ BEGIN
 		COUNT(*) AS NumberOfExpenseReports,
 		SUM(c.Amount) as Total,
 		SUM(c.AmountPredicted) as TotalPredicted,
-		ABS(SUM(c.AmountPredicted) - SUM(c.Amount)) / COUNT(*) AS MAE,
+		CAST(ABS(SUM(c.AmountPredicted) - SUM(c.Amount)) / COUNT(*) AS DECIMAL(7,2)) AS MAE,
 		CAST(100.0 * SUM(c.Amount - c.AmountPredicted) / SUM(c.Amount) AS DECIMAL(7,2)) AS MAPE
 	FROM #Predictions p
 		CROSS APPLY

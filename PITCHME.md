@@ -44,7 +44,7 @@ SQL Server Machine Learning Services (ML Services) was originally released as SQ
 
 Since then, Microsoft added support for Python in SQL Server 2017 and renamed the product accordingly.
 
-With SQL Server 2019, Microsoft is adding Java support as well and has opened the door to other languages too.
+With SQL Server 2019, Microsoft has added Java support as well and has opened the door to other languages too.
 
 ---?image=presentation/assets/background/motivation.jpg&size=cover&opacity=20
 
