@@ -298,7 +298,7 @@ Our organization unraveled a case of expense report fraud among several employee
 
 Employees were allowed to submit expense reports of up to $40 without a receipt, but needed to include a receipt for everything above.  Several employees began submitting fraudulent claims under $40.
 
-Management would like to know how much we believe employees took above and beyond what the expected amounts.
+Management would like to know how much we believe employees took above and beyond the expected amounts.
 
 ---?image=presentation/assets/background/demo.jpg&size=cover&opacity=20
 
