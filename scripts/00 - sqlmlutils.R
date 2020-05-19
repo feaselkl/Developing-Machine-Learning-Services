@@ -16,7 +16,7 @@ if (!require(sqlmlutils))
 
 
 # NOTE:  need to do this for *each* database!
-db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost,50433", database = "ExpenseReporting")
+db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost,50433", database = "ExpenseReports")
 
 # Install one package.
 sql_install.packages(
@@ -61,7 +61,7 @@ View(r)
 if (1=2) {
   sql_install.packages(
     connectionString = db_connection,
-    pkgs = "C:/SourceCode/Developing-Machine-Learning-Services/packages/ForensicAccountingR_0.1.0.zip",
+    pkgs = "C:/SourceCode/Developing-Machine-Learning-Services/packages/ExpenseReportsR_0.1.0.zip",
     verbose = TRUE,
     scope = "PUBLIC",
     repos = NULL
