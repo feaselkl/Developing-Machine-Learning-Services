@@ -74,21 +74,21 @@ My goals in this talk:
 
 ### How It Works:  R
 
-<img src="presentation/assets/image/script_in-db-r.png" />
+<img src="presentation/assets/image/script_in-db-r.png" /><br />
 <a href="https://docs.microsoft.com/en-us/sql/machine-learning/concepts/extension-r?view=sql-server-ver15">Source</a>
 
 ---
 
 ### How It Works:  Python
 
-<img src="presentation/assets/image/script_in-db-python2.png" />
+<img src="presentation/assets/image/script-in-db-python2.png" /><br />
 <a href="https://docs.microsoft.com/en-us/sql/machine-learning/concepts/extension-python?view=sql-server-ver15">Source</a>
 
 ---
 
 ### Native Scoring
 
-For certain algorithms, SQL Server has built-in native C++ implementations, letting us generate predictions without needing R or Python (or even ML Services!)  These are:
+SQL Server has built-in native C++ implementations for the following algorithms:
 
 |RevoScaleR|revoscalepy|Desc|
 |----------|-----------|----|
@@ -132,7 +132,7 @@ Avoid these scenarios:
 
 ### A Quick Note on Azure SQL DB Edge
 
-Microsoft's Azure SQL Database Edge is a version of SQL Server intended for IoT scenarios.  It includes support for ONNX, the Open Neural Network Exchange.  This lets you perform native scoring of neural networks, but is not currently supported in SQL Server 2019.
+Microsoft's Azure SQL Database Edge is a version of SQL Server intended for IoT scenarios.  It includes support for ONNX, the Open Neural Network Exchange.  This lets you perform native scoring of neural networks, but SQL Server 2019 does not currently support native prediction via ONNX.
 
 ---
 
@@ -306,7 +306,7 @@ Management would like to know how much we believe employees took above and beyon
 
 ---
 
-<img src="presentation/assets/image/ExpenseCategoryBrekadown.png" />
+<img src="presentation/assets/image/ExpenseCategoryBreakdown.png" />
 
 ---?image=presentation/assets/background/model.jpg&size=cover&opacity=20
 
@@ -320,13 +320,15 @@ We now want to apply machine learning techniques to the problem, so we will writ
 
 With RStudio and Rtools installed, go to File -> New Project -> New Directory -> R Package.
 
+---
+
 <img src="presentation/assets/image/RStudioPackage.png" />
 
 ---
 
 After adding in the code, we will build the package.
 
-<img src="presentation/assets/image/RStudioPackage.png" />
+<img src="presentation/assets/image/RStudioBuildPackage.png" />
 
 ---
 
@@ -372,7 +374,7 @@ This is also straightforward.
 
 ### Wrapping Up
 
-SQL Server Machine Learning Services offers the ability to operationalize R or Python effectively.  It won't work perfectly in all circumstances, but can serve as a nice way to bring machine learning models to production.
+SQL Server Machine Learning Services offers the ability to operationalize R or Python effectively and can serve as a nice way to bring machine learning models to production.
 
 To learn more, go here:  <a href="http://csmore.info/on/mlservicesdev">http://CSmore.info/on/mlservicesdev</a>
 
