@@ -57,8 +57,8 @@ BEGIN
 		SET @remoteCommand = N'
 import pickle 
 from sklearn.ensemble import RandomForestRegressor
-clf = RandomForestRegressor() 
-trained_model = pickle.dumps(clf.fit(ExpenseData[["ExpenseCategoryID", "ExpenseYear"]], ExpenseData[["Amount"]].values.ravel())) 
+reg = RandomForestRegressor() 
+trained_model = pickle.dumps(reg.fit(ExpenseData[["ExpenseCategoryID", "ExpenseYear"]], ExpenseData[["Amount"]].values.ravel())) 
 ';
 	END
 
@@ -70,6 +70,17 @@ trained_model = pickle.dumps(clf.fit(ExpenseData[["ExpenseCategoryID", "ExpenseY
 		@params = N'@trained_model varbinary(max) OUTPUT',
 		@trained_model = @trainedModel OUTPUT;
 END
+GO
+
+DECLARE
+	@trained_model VARBINARY(MAX);
+
+EXEC dbo.ExpenseReports_TrainModelML
+	@language = N'Python',
+	@modelType = N'RandomForestRegression',
+	@trainedModel = @trained_model OUTPUT;
+PRINT(@trained_model);
+
 GO
 
 CREATE OR ALTER PROCEDURE dbo.ExpenseReports_TrainModel
@@ -124,5 +135,6 @@ SELECT
 	ModelLanguage,
 	ModelType,
 	Model,
+	DATALENGTH(Model),
 	IsNativeScored
 FROM dbo.Model m;

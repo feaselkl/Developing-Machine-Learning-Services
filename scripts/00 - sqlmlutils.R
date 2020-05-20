@@ -68,7 +68,7 @@ if (1=2) {
   )
   sql_remove.packages(
     connectionString = db_connection,
-    pkgs = "ForensicAccountingR",
+    pkgs = "ExpenseReportsR",
     dependencies = FALSE,
     checkReferences = TRUE,
     scope = "PUBLIC",
