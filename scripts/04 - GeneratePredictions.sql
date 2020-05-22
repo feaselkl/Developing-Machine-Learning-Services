@@ -10,7 +10,7 @@ BEGIN
 	DECLARE
 		@sql NVARCHAR(MAX),
 		@remoteCommand NVARCHAR(MAX),
-		@trained_model VARBINARY(MAX);
+		@trainedModel VARBINARY(MAX);
 
 	SET @sql = N'
 	SELECT
@@ -31,7 +31,7 @@ BEGIN
 		er.ExpenseDate >= ''2017-01-01'';';
 
 	SELECT
-		@trained_model = model
+		@trainedModel = model
 	FROM dbo.Model
 	WHERE
 		ModelLanguage = @language
@@ -64,7 +64,11 @@ OutputDataSet = pd.concat([ExpenseData, pred], axis=1)
 		@input_data_1 = @sql,
 		@input_data_1_name = N'ExpenseData',
 		@params = N'@trained_model varbinary(max)',
-		@trained_model = @trained_model
+		-- My naming may seem a little weird, so I wanted to call it out here in a comment.
+		-- I want to show that the internal parameter (trained_model) does not need to have
+		-- the same name as the output variable (trainedModel). In practice, it makes sense
+		-- to keep these the same unless you have a good reason not to.
+		@trained_model = @trainedModel
 	WITH RESULT SETS
 	((
 		EmployeeID INT,

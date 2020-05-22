@@ -8,7 +8,7 @@ TrainXgBoostModel <- function(inputDataSet) {
 
   label <- inputDataSet$Amount
   data <- as.matrix(inputDataSet[, c("ExpenseYear", "ExpenseCategoryID")])
-  xgboost(data = data, label = label, max.depth = 4, nrounds = 6, objective="reg:squarederror");
+  xgboost(data = data, label = label, max.depth = 4, nrounds = 6, objective="reg:linear");
 }
 
 #The InputDataSet contains the training data passed in from a stored procedure.

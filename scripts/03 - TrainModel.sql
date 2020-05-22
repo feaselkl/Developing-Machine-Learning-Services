@@ -68,18 +68,23 @@ trained_model = pickle.dumps(reg.fit(ExpenseData[["ExpenseCategoryID", "ExpenseY
 		@input_data_1 = @sql,
 		@input_data_1_name = N'ExpenseData',
 		@params = N'@trained_model varbinary(max) OUTPUT',
+		-- My naming may seem a little weird, so I wanted to call it out here in a comment.
+		-- I want to show that the internal parameter (trained_model) does not need to have
+		-- the same name as the output variable (trainedModel). In practice, it makes sense
+		-- to keep these the same unless you have a good reason not to.
 		@trained_model = @trainedModel OUTPUT;
 END
 GO
 
+-- Give this a run just to make sure it works the way we expect it to.
 DECLARE
-	@trained_model VARBINARY(MAX);
+	@trainedModel VARBINARY(MAX);
 
 EXEC dbo.ExpenseReports_TrainModelML
 	@language = N'Python',
 	@modelType = N'RandomForestRegression',
-	@trainedModel = @trained_model OUTPUT;
-PRINT(@trained_model);
+	@trainedModel = @trainedModel OUTPUT;
+PRINT(@trainedModel);
 
 GO
 
@@ -135,6 +140,6 @@ SELECT
 	ModelLanguage,
 	ModelType,
 	Model,
-	DATALENGTH(Model),
+	DATALENGTH(Model) AS ModelSize,
 	IsNativeScored
 FROM dbo.Model m;

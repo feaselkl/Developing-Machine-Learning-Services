@@ -4,7 +4,12 @@ import sqlmlutils
 from sqlmlutils.packagemanagement.scope import Scope
 
 # Connect to the Database
-conn = sqlmlutils.ConnectionInfo(server="localhost", database="ExpenseReports")
+# NOTE:  need to do this for *each* database!
+# Uncomment this version if you want to connect to a Docker container.
+#conn = sqlmlutils.ConnectionInfo(server="localhost,52433", database="ExpenseReports", uid="sa", pwd="SomeBadP@ssword3")
+# Uncomment this version if you want to connect to a local installation of SQL Server 2019.
+#conn = sqlmlutils.ConnectionInfo(server="localhost", database="ExpenseReports")
+
 sqlpy = sqlmlutils.SQLPythonExecutor(conn)
 pkgmanager = sqlmlutils.SQLPackageManager(conn)
 # Install a package as dbo, allowing anybody to use it.
