@@ -130,9 +130,9 @@ Avoid these scenarios:
 
 ---?image=presentation/assets/background/space.jpg&size=cover&opacity=20
 
-### A Quick Note on Azure SQL DB Edge
+### A Quick Note on Azure SQL Edge
 
-Microsoft's Azure SQL Database Edge is a version of SQL Server intended for IoT scenarios.  It includes support for ONNX, the Open Neural Network Exchange.  This lets you perform native scoring of neural networks, but SQL Server 2019 does not currently support native prediction via ONNX.
+Microsoft's Azure SQL Edge is a version of SQL Server intended for IoT scenarios.  It includes support for ONNX, the Open Neural Network Exchange.  This lets you perform native scoring of neural networks, but SQL Server 2019 does not currently support native prediction via ONNX.
 
 ---
 

@@ -21,7 +21,7 @@ if (!require(sqlmlutils))
 # Uncomment this version if you want to connect to a Docker container.
 #db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost,52433", database = "ExpenseReports", uid="sa", pwd="SomeBadP@ssword3")
 # Uncomment this version if you want to connect to a local installation of SQL Server 2019.
-#db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost", database = "ExpenseReports")
+db_connection <- connectionInfo(driver = "ODBC Driver 17 for SQL Server", server = "localhost", database = "ExpenseReports")
 
 # Step 3, installing and removing packages:
 # NOTE:  this installation can be *very* slow in a Docker container.  For that reason, I have
@@ -77,7 +77,7 @@ if (1=2) {
   # When you do try to install this, make sure you change this line to set the appropriate package location!
   sql_install.packages(
     connectionString = db_connection,
-    pkgs = "C:/SourceCode/Developing-Machine-Learning-Services/packages/ExpenseReportsR_0.1.0.tar.gz",
+    pkgs = "C:/SourceCode/Developing-Machine-Learning-Services/packages/ExpenseReportsR_0.1.0.zip",
     verbose = TRUE,
     scope = "PUBLIC",
     repos = NULL
