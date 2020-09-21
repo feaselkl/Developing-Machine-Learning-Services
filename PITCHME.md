@@ -296,7 +296,7 @@ EXEC sp_execute_external_script
 
 Our organization unraveled a case of expense report fraud among several employees.
 
-Employees were allowed to submit expense reports of up to \$40 without a receipt, but needed to include a receipt for everything above.  Several employees began submitting fraudulent claims under \$40.
+Employees were allowed to submit expense reports of up to $40 without a receipt, but needed to include a receipt for everything above.  Several employees began submitting fraudulent claims under that amount.
 
 Management would like to know how much we believe employees took above and beyond the expected amounts.
 
