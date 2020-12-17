@@ -1,0 +1,457 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Catallaxy Services | Developing a Solution with SQL Server Machine Learning Services</title>
+
+		<link rel="stylesheet" href="../reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="../reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="../reveal.js/dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="../WebsiteAssets/mods.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../reveal.js/plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h2>Developing a Solution</h2>
+					<h2>with SQL Server Machine Learning Services</h2>
+					
+					<a href="https://www.catallaxyservices.com">Kevin Feasel</a> (<a href="https://twitter.com/feaselkl">@feaselkl</a>)<br />
+					<a href="http://CSmore.info/on/mlservicesdev">http://CSmore.info/on/mlservicesdev</a>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Who Am I?  What Am I Doing Here?</h3>
+					<div class="container">
+						<div class="col">
+							<table class="whoami">
+								<tr>
+									<td><a href="https://csmore.info"><img src="../WebsiteAssets/Logo.png" height="100" /></a></td>
+									<td nowrap><a href="https://csmore.info">Catallaxy Services</a></td>
+								</tr>
+								<tr>
+									<td><a href="https://curatedsql.com"><img src="../WebsiteAssets/CuratedSQLLogo.png" height="100" /></a></td>
+									<td nowrap><a href="https://curatedsql.com">Curated SQL</a></td>
+								</tr>
+								<tr>
+									<td><a href="https://www.apress.com/us/book/9781484254608"><img src="../WebsiteAssets/PolyBaseRevealed.png" height="120" /></a></td>
+									<td nowrap><a href="https://www.apress.com/us/book/9781484254608">PolyBase Revealed</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="col">
+							<a href="http://www.twitter.com/feaselkl"><img src="../WebsiteAssets/HeadShot.jpg" height="358" width="315" /></a>
+							<br />
+							<a href="http://www.twitter.com/feaselkl">@feaselkl</a>
+						</div>					
+					</div>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/questions.jpg" data-background-opacity="0.4">
+					<h3>What is ML Services?</h3>
+					
+					<p>SQL Server Machine Learning Services (ML Services) was originally released as SQL Server R Services with SQL Server 2016.</p>
+
+					<p>Since then, Microsoft added support for Python in SQL Server 2017 and renamed the product accordingly.</p>
+
+					<p>With SQL Server 2019, Microsoft has added Java support as well and has opened the door to other languages too.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/motivation.jpg" data-background-opacity="0.4">
+					<h3>Motivation</h3>
+					
+					<p>My goals in this talk:</p>
+					
+					<ul>
+						<li>Introduce you to SQL Server Machine Learning Services.</li>
+						<li>Discuss when ML Services might be a fit.</li>
+						<li>Install and configure ML Services.</li>
+						<li>Cover external script execution.</li>
+						<li>Build a basic project and deploy custom code.</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li class="active">An Overview</li>
+						<li>Installing ML Services</li>
+						<li>Installing Packages</li>
+						<li>External Script Execution</li>
+						<li>Building a Project</li>
+						<li>Deploying Custom Code</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>How it Works:  R</h3>
+					
+					<img src="presentation/assets/image/script_in-db-r.png" /><br />
+					<a href="https://docs.microsoft.com/en-us/sql/machine-learning/concepts/extension-r?view=sql-server-ver15">Source</a>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>How it Works:  Python</h3>
+					
+					<img src="presentation/assets/image/script-in-db-python2.png" /><br />
+					<a href="https://docs.microsoft.com/en-us/sql/machine-learning/concepts/extension-python?view=sql-server-ver15">Source</a>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4" data-markdown>
+					<textarea data-template>
+					### Native Scoring
+					
+					|RevoScaleR|revoscalepy|Desc|
+					|----------|-----------|----|
+					|rxLinMod|rx_lin_mod|Linear Regression|
+					|rxLogit|rx_logit|Logistic Regression|
+					|rxDtree|rx_dtree|Decision Tree|
+					|rxDForest|rx_dforest|Random Forest|
+					|rxBTrees|rx_btrees|Boosted Decision Trees|
+					</textarea>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>The Upshot</h3>
+					
+					<p>Machine Learning Services brings ML code to the data, reducing data movement and extending functionality inside SQL Server.</p>
+
+					<p>We can use Resource Governor to limit CPU and memory utilization.  See <a href="http://csmore.info/on/mlservices">http://CSmore.info/on/mlservices</a> for more information on this.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/jump.jpg" data-background-opacity="0.2">
+					<h3>What Works Well</h3>
+					
+					<p>These kinds of scenarios work really well with SQL Server ML Services:</p>
+					
+					<ol>
+						<li>Your input data is already in SQL Server.</li>
+						<li>You have longer-running processes (batch training or scoring).</li>
+						<li>You can use native scoring with the <code>PREDICT</code> operator.</li>
+						<li>You want to interact with R using .NET code.</li>
+						<li>You do not need real-time interactivity.</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/surfer-crash.jpg" data-background-opacity="0.2">
+					<h3>What Doesn't Work</h3>
+					
+					<p>Avoid these scenarios:</p>
+					
+					<ol>
+						<li>You need singleton, near real-time predictions AND cannot use native scoring.</li>
+						<li>None of your core data is inside SQL Server.</li>
+						<li>Your SQL Server instance is already at near 100% CPU.</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/space.jpg" data-background-opacity="0.2">
+					<h3>A Quick Note on Azure SQL Edge</h3>
+					
+					<p>Microsoft's Azure SQL Edge is a version of SQL Server intended for IoT scenarios.  It includes support for ONNX, the Open Neural Network Exchange.  This lets you perform native scoring of neural networks, but SQL Server 2019 does not currently support native prediction via ONNX.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>An Overview</li>
+						<li class="active">Installing ML Services</li>
+						<li>Installing Packages</li>
+						<li>External Script Execution</li>
+						<li>Building a Project</li>
+						<li>Deploying Custom Code</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Start a New Installation</h3>
+					
+					<img src="presentation/assets/image/A01_New_Installation.png" height="525" width="780" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Select ML Services</h3>
+					
+					<img src="presentation/assets/image/A02_Install_Options.png" height="471" width="719" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Enable External Scripts</h3>
+					
+					<img src="presentation/assets/image/A03_Enable_External_Scripts.png" height="267" width="969" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/rocket.jpg" data-background-opacity="0.2">
+					<h3>Restart the Launchpad</h3>
+					
+					<p>Once you have enabled external scripts, be sure to restart the Launchpad service.  To be safe, you might want to restart the SQL Server service as well.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>An Overview</li>
+						<li>Installing ML Services</li>
+						<li class="active">Installing Packages</li>
+						<li>External Script Execution</li>
+						<li>Building a Project</li>
+						<li>Deploying Custom Code</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/blue-package.jpg" data-background-opacity="0.2">
+					<h3>Package Management</h3>
+					
+					<p>There are several techniques for installing packages in R and Python, but we will cover the three best approaches.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>sqlmlutils</h3>
+					
+					<p>The <code>sqlmlutils</code> package allows you to install R or Python code remotely.  This is the <strong>best</strong> way to install packages for SQL Server 2019 (R or Python) or 2017 (R only).</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/crt.jpg" data-background-opacity="0.2">
+					<h3>R / Python Console</h3>
+					
+					<p>If you have <strong>administrative access</strong> to the machine running SQL Server, you can open up the R console and run <code>install.packages()</code> in the console.  Similarly, you can run <code>pip install</code> from the command line for Python.
+
+					<p>By default, the R console is installed in the <code>MSSQL{##}.{MSSQLSERVER}\R_SERVICES\bin</code> folder, and pip.exe is installed in the <code>MSSQL{##}.{MSSQLSERVER}\PYTHON_SERVICES\Scripts\</code> folder.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/library.jpg" data-background-opacity="0.2">
+					<h3>Create External Library</h3>
+					
+					<p>The <code>CREATE EXTERNAL LIBRARY</code> requires <code>GRANT ALTER ANY EXTERNAL LIBRARY</code> and allows you to install a package from a zip file.</p>
+
+					<img src="presentation/assets/image/Create_External_Library_Permission_Denied.png" height="369" width="714" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/tags.jpg" data-background-opacity="0.2">
+					<h3>Use This When:</h3>
+					
+					<ul>
+						<li>sqlmlutils:  start with this for 2019, or for R packages in 2017.</li>
+						<li>Console:  "complex" packages (e.g., Keras in R) or cases when sqlmlutils fails to load a package from a repository.</li>
+						<li><code>CREATE EXTERNAL LIBRARY</code>:  cases when sqlmlutils fails to load a custom package.</li>
+					</ul>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/demo.jpg" data-background-opacity="0.2">
+					<h3>Demo Time</h3>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>An Overview</li>
+						<li>Installing ML Services</li>
+						<li>Installing Packages</li>
+						<li class="active">External Script Execution</li>
+						<li>Building a Project</li>
+						<li>Deploying Custom Code</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/greenscreen.jpg" data-background-opacity="0.2">
+					<h3>External Script Execution</h3>
+					
+					<p>SQL Server has a built-in stored procedure to run R and Python code:  <code>sp_execute_external_script</code>.  It functions similarly to <code>sp_executesql</code>, which we use to run dynamic SQL.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>sqlmlutils</h3>
+					
+					<p>The <code>sqlmlutils</code> package allows you to install R or Python code remotely.  This is the <strong>best</strong> way to install packages for SQL Server 2019 (R or Python) or 2017 (R only).</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<pre><code data-line-numbers="1-3|2|3" data-trim><script type="text/template">
+					exec sp_execute_external_script
+						@language = N'R',
+						@script = N'print("Hello world")';
+					</script></code></pre>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<pre><code data-trim><script type="text/template">
+					exec sp_execute_external_script
+						@language = N'Python',
+						@script = N'print("Hello world")';
+					</script></code></pre>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<pre><code data-line-numbers="1-7|3|4|5|6|7" data-trim><script type="text/template">
+					EXEC sp_execute_external_script
+						@language = N'R',
+						@script = @remoteCommand,
+						@input_data_1 = N'SELECT ColA, ColB, ColC FROM dbo.SomeTable',
+						@input_data_1_name = N'TrainingData',
+						@params = N'@trained_model varbinary(max) OUTPUT',
+						@trained_model = @trained_model OUTPUT;
+					</script></code></pre>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>An Overview</li>
+						<li>Installing ML Services</li>
+						<li>Installing Packages</li>
+						<li>External Script Execution</li>
+						<li class="active">Building a Project</li>
+						<li>Deploying Custom Code</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/calculator.jpg" data-background-opacity="0.2">
+					<h3>Reviewing the Problem</h3>
+					
+					<p>Our organization unraveled a case of expense report fraud among several employees.</p>
+
+					<p>Employees were allowed to submit expense reports of up to $40 without a receipt, but needed to include a receipt for everything above.  Several employees began submitting fraudulent claims under that amount.</p>
+
+					<p>Management would like to know how much we believe employees took above and beyond the expected amounts.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/demo.jpg" data-background-opacity="0.2">
+					<h3>Demo Time</h3>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<img src="presentation/assets/image/ExpenseCategoryBreakdown.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Putting ML to the Test</h3>
+					
+					<p>We now want to apply machine learning techniques to the problem, so we will write R and Python code to build models which will help us generate expected amounts.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Building an R Project</h3>
+					
+					<p>With RStudio and Rtools installed, go to File -> New Project -> New Directory -> R Package.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<img src="presentation/assets/image/RStudioPackage.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<p>After adding in the code, we will build the package.</p>
+
+					<img src="presentation/assets/image/RStudioBuildPackage.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Building a Python Project</h3>
+					
+					<p>File -> New Project</p>
+
+					<img src="presentation/assets/image/PyCharmProject.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<img src="presentation/assets/image/PyCharmPackage.png" />
+				</section>
+				
+				<section data-background-image="presentation/assets/background/demo.jpg" data-background-opacity="0.2">
+					<h3>Demo Time</h3>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Agenda</h3>
+					
+					<ol>
+						<li>An Overview</li>
+						<li>Installing ML Services</li>
+						<li>Installing Packages</li>
+						<li>External Script Execution</li>
+						<li>Building a Project</li>
+						<li class="active">Deploying Custom Code</li>
+					</ol>
+				</section>
+				
+				<section data-background-image="presentation/assets/image/Bubbles.jpg" data-background-opacity="0.4">
+					<h3>Deploying Our Code</h3>
+					
+					<p>Just as with packages from repositories, we can use sqlmlutils to deploy our custom code.</p>
+
+					<p>This is also straightforward.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/demo.jpg" data-background-opacity="0.2">
+					<h3>Demo Time</h3>
+				</section>
+
+				<section data-background-image="presentation/assets/background/wrappingup.jpg" data-background-opacity="0.2">
+					<h3>Wrapping Up</h3>
+					
+					<p>SQL Server Machine Learning Services offers the ability to operationalize R or Python effectively and can serve as a nice way to bring machine learning models to production.</p>
+				</section>
+				
+				<section data-background-image="presentation/assets/background/wrappingup.jpg" data-background-opacity="0.2">
+					<h3>Wrapping Up</h3>
+					
+					<p>
+						To learn more, go here:
+						<br />
+						<a href="https://csmore.info/on/backups">https://CSmore.info/on/backups</a>
+					</p>
+					<br />
+					<p>
+						And for help, contact me:
+						<br />
+						<a href="mailto:feasel@catallaxyservices.com">feasel@catallaxyservices.com</a> | <a href="https://www.twitter.com/feaselkl">@feaselkl</a>
+					</p>
+					<br />
+					<p>
+						Catallaxy Services consulting:
+						<br />
+						<a href="https://csmore.info/contact">https://CSmore.info/on/contact</a>
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="../reveal.js/dist/reveal.js"></script>
+		<script src="../reveal.js/plugin/zoom/zoom.js"></script>
+		<script src="../reveal.js/plugin/notes/notes.js"></script>
+		<script src="../reveal.js/plugin/search/search.js"></script>
+		<script src="../reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="../reveal.js/plugin/math/math.js"></script>
+		<script src="../reveal.js/plugin/menu/menu.js"></script>
+		<script src="../reveal.js/plugin/highlight/highlight.js"></script>
+		<script src="../reveal.js/plugin/chart/Chart.min.js"></script>
+		<script src="../reveal.js/plugin/chart/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				width: '70%',
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+				transition: 'fade',
+				
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath, RevealMenu, RevealChart ]
+			});
+		</script>
+	</body>
+</html>
